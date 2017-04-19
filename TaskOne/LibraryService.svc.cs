@@ -14,17 +14,6 @@ namespace TaskOne
     {
         private static readonly List<Book> AvailableBooks = new List<Book>();
         private static readonly Dictionary<int, Book> TakenBooks = new Dictionary<int, Book>();
-        private static readonly Book TakenBook = new Book {BookType = BookType.TakenBook};
-
-        public LibraryService() //: this(new List<Book>(), new List<bool>())
-        {
-        }
-
-/*        public LibraryService(List<Book> availableBooks, List<bool> takenBooks)
-        {
-            LibraryService.availableBooks = availableBooks;
-            LibraryService.takenBooks = takenBooks;
-        }*/
 
         public void AddBook(Book value)
         {
@@ -34,7 +23,7 @@ namespace TaskOne
 
         public Book GetBook(int id)
         {
-            if (AvailableBooks.Count >= id + 1 && !AvailableBooks[id].Equals(TakenBook))
+            if (AvailableBooks.Count >= id + 1 && AvailableBooks[id] == null)
             {
                 return AvailableBooks[id];
             }
@@ -52,7 +41,7 @@ namespace TaskOne
             var bookToTake = AvailableBooks.FirstOrDefault(z => z.Equals(book)); //if no book check
             if (bookToTake != null)
             {
-                AvailableBooks[bookToTake.Id] = TakenBook;
+                AvailableBooks[bookToTake.Id] = null;
                 TakenBooks.Add(bookToTake.Id, bookToTake);
             }
             return bookToTake;
